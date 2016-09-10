@@ -1,0 +1,21 @@
+<RCC>
+    <qresource prefix="/">
+        <file>main.qml</file>
+        <file>PhysicalTab.qml</file>
+        <file>MentalTab.qml</file>
+        <file>SocialTab.qml</file>
+        <file>AccomplishmentsTab.qml</file>
+        <file>BonusRoundTab.qml</file>
+    </qresource>
+    <qresource prefix="/images">
+        <file alias="cyborg.png">images/cyborg.png</file>
+        <file alias="chadstacey.png">images/chadstacey.png</file>
+        <file alias="grandwizard.png">images/grandwizard.png</file>
+        <file alias="normalfag.png">images/normalfag.png</file>
+        <file alias="robot.png">images/robot.png</file>
+        <file alias="slightlystrange.png">images/slightlystrange.png</file>
+        <file alias="successful.png">images/successful.png</file>
+        <file alias="wizard.png">images/wizard.png</file>
+        <file alias="wizardapprentice.png">images/wizardapprentice.png</file>
+    </qresource>
+</RCC>
