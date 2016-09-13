@@ -2,6 +2,7 @@ import QtQuick 2.3
 import QtQuick.Controls 1.2
 import QtQuick.Layouts 1.1
 import QtQuick.Dialogs 1.1
+import QtQml.Models 2.1
 
 import com.mycompany.qmlcomponents 1.0
 
@@ -107,127 +108,198 @@ ApplicationWindow {
         }
     }
 
-    TabView {
-        id: tabView
-
-        frameVisible: true
-        currentIndex: 0
-        tabsVisible: true
-        tabPosition: 1
+    ListView {
+        id: mainComptView
         anchors.left: parent.left
         anchors.right: parent.right
 
         anchors.top: parent.top
         anchors.bottom: parent.bottom
-        anchors.bottomMargin: 50
-        anchors.rightMargin: 10
+        anchors.bottomMargin: 10
 
-        PhysicalTab {
-            anchors.topMargin: 10
-            anchors.bottomMargin: 10
-        }
+        orientation: ListView.Horizontal
+        highlightRangeMode: ListView.StrictlyEnforceRange
+        interactive: false
 
-        MentalTab {
-            anchors.fill: parent
-            anchors.topMargin: 10
-            anchors.bottomMargin: 10
+        property bool resultsShown: false
 
-        }
+        model: ObjectModel {
+            Item {
+                id: tabsItem
+                width: mainComptView.width
+                height: mainComptView.height
+                visible: mainComptView.currentIndex === 0
 
-        SocialTab {
-            anchors.fill: parent
-            anchors.topMargin: 10
-            anchors.bottomMargin: 10
+                TabView {
+                    id: tabView
 
-        }
+                    visible: true
+                    frameVisible: true
+                    currentIndex: 0
+                    tabsVisible: true
+                    tabPosition: 1
 
-        AccomplishmentsTab {
-            anchors.fill: parent
-            anchors.topMargin: 10
-            anchors.bottomMargin: 10
-        }
+                    anchors.top: parent.top
+                    anchors.left: parent.left
+                    anchors.right: parent.right
+                    anchors.bottom: newComputeButton.top
+                    anchors.bottomMargin: 20
 
-        BonusRoundTab {
-            anchors.fill: parent
-            anchors.topMargin: 10
-            anchors.bottomMargin: 10
-        }
-    }
+                    //width: parent.width
+                    //height: parent.height - 40
 
-    GroupBox {
-        id: rightColi
-        width: 200
-        implicitHeight: 800
+                    PhysicalTab {
+                        anchors.fill: parent
+                        anchors.topMargin: 10
+                        anchors.bottomMargin: 10
+                    }
 
-        anchors.top: parent.top
-        anchors.right: parent.right
-        visible: false
+                    MentalTab {
+                        anchors.fill: parent
+                        anchors.topMargin: 10
+                        anchors.bottomMargin: 10
 
-        Image {
-            id: rankImage
-            source: ""
-            fillMode: Image.PreserveAspectCrop
-            anchors.top: parent.top
-        }
+                    }
 
-        Label {
-            id: rankHeader
-            text: "Rank:"
-            font.bold: true
-            visible: true
-            anchors.top: rankImage.bottom
-            anchors.topMargin: 10
-        }
+                    SocialTab {
+                        anchors.fill: parent
+                        anchors.topMargin: 10
+                        anchors.bottomMargin: 10
 
-        Label {
-            id: rankLabel
-            anchors.top: rankHeader.bottom
-            anchors.topMargin: 2
-            visible: true
+                    }
 
-            onTextChanged: {
-                visible = text.length > 0 ? true : false;
+                    AccomplishmentsTab {
+                        anchors.fill: parent
+                        anchors.topMargin: 10
+                        anchors.bottomMargin: 10
+                    }
+
+                    BonusRoundTab {
+                        anchors.fill: parent
+                        anchors.topMargin: 10
+                        anchors.bottomMargin: 10
+                    }
+                }
+
+                Button {
+                    id: newComputeButton
+                    text: qsTr("Compute!")
+                    //anchors.top: tabView.bottom
+                    //anchors.topMargin: 10
+                    anchors.bottom: parent.bottom
+                    anchors.bottomMargin: 10
+                    //height: 20
+                    tooltip: qsTr("Compute final score and your rank")
+                    onClicked: {
+                        rankcalculator.computeanswer();
+
+                        rankLabel.text = getRankString(rankcalculator.finalRank)
+                        finalScore.text = "Score: " + rankcalculator.finalResult
+                        rankDescription.text = rankDescriptionList[rankcalculator.finalRank];
+                        rankImage.source = Qt.resolvedUrl("images/" + rankImageList[rankcalculator.finalRank]);
+                        mainComptView.resultsShown = true;
+                        mainComptView.positionViewAtIndex(1, ListView.SnapPosition)
+                    }
+                }
+            }
+
+            Item {
+                id: rightColi
+                visible: mainComptView.currentIndex === 1 && mainComptView.resultsShown
+                width: mainComptView.width
+                height: mainComptView.height
+
+                Image {
+                    id: rankImage
+                    source: ""
+                    fillMode: Image.PreserveAspectFit
+                    height: parent.height * 0.25;
+                    width: parent.height * 0.25;
+                    anchors.top: parent.top
+                    anchors.topMargin: 10
+                    anchors.left: parent.left
+                    anchors.leftMargin: 20
+                    //anchors.right: parent.right
+                    //anchors.rightMargin: 20
+                }
+
+                Label {
+                    id: finalScore
+                    text: "Score:"
+                    font.bold: true
+                    anchors.left: parent.left
+                    anchors.leftMargin: 20
+                    anchors.top: rankImage.bottom
+                    anchors.topMargin: 10
+                }
+
+                Label {
+                    id: rankHeader
+                    text: "Rank:"
+                    font.bold: true
+                    anchors.top: finalScore.bottom
+                    anchors.topMargin: 10
+
+                    anchors.left: parent.left
+                    anchors.right: parent.right
+                    anchors.leftMargin: 20
+                    anchors.rightMargin: 20
+                }
+
+                Label {
+                    id: rankLabel
+                    anchors.top: rankHeader.bottom
+                    anchors.topMargin: 2
+
+                    anchors.left: parent.left
+                    anchors.right: parent.right
+                    anchors.leftMargin: 20
+                    anchors.rightMargin: 20
+
+                    onTextChanged: {
+                        visible = text.length > 0 ? true : false;
+                    }
+                }
+
+                Text {
+                    id: rankDescription
+                    anchors.top: rankLabel.bottom
+                    anchors.topMargin: 8
+
+                    anchors.left: parent.left
+                    anchors.right: parent.right
+                    anchors.leftMargin: 20
+                    anchors.rightMargin: 20
+
+                    verticalAlignment: Text.AlignTop
+                    clip: false
+                    //visible: true
+                    wrapMode: Text.WrapAtWordBoundaryOrAnywhere
+
+                    /*onTextChanged: {
+                        visible = text.length > 0 ? true : false;
+                    }
+                    */
+                }
+
+                Button {
+                    id: returnToTestButton
+                    anchors.top: rankDescription.bottom
+                    anchors.topMargin: 10
+                    anchors.left: parent.left
+                    anchors.leftMargin: 20
+                    text: qsTr("\u2190 Back");
+                    onClicked: {
+                        mainComptView.positionViewAtIndex(0, ListView.SnapPosition)
+                    }
+                }
             }
         }
-
-        Text {
-            id: rankDescription
-            anchors.left: parent.left
-            anchors.leftMargin: 0
-            anchors.right: parent.right
-            anchors.rightMargin: 0
-            anchors.top: rankLabel.bottom
-            anchors.topMargin: 8
-            verticalAlignment: Text.AlignTop
-            clip: false
-            visible: true
-            wrapMode: Text.WrapAtWordBoundaryOrAnywhere
-
-            onTextChanged: {
-                visible = text.length > 0 ? true : false;
-            }
-        }
     }
 
-    Button {
-        id: newComputeButton
-        text: qsTr("Compute!")
-        anchors.top: tabView.bottom
-        anchors.topMargin: 10
-        tooltip: qsTr("Compute final score and your rank")
-        onClicked: {
-            rankcalculator.computeanswer();
-            statusLabel.text = "Score: " + rankcalculator.finalResult
-            rankHeader.visible = true;
-            rankLabel.text = getRankString(rankcalculator.finalRank)
-            rankDescription.text = rankDescriptionList[rankcalculator.finalRank];
-            rankImage.source = Qt.resolvedUrl("images/" + rankImageList[rankcalculator.finalRank]);
-            tabView.anchors.right = rightColi.left
-            rightColi.visible = true;
-        }
-    }
 
-    statusBar: StatusBar {
+
+    /*statusBar: StatusBar {
         RowLayout {
             Label {
                 id: statusLabel
@@ -235,5 +307,6 @@ ApplicationWindow {
             }
         }
     }
+    */
 }
 
