@@ -186,6 +186,10 @@ ApplicationWindow {
                     text: qsTr("Compute!")
                     //anchors.top: tabView.bottom
                     //anchors.topMargin: 10
+                    anchors.left: parent.left
+                    anchors.leftMargin: 10
+                    anchors.right: parent.right
+                    anchors.rightMargin: 20
                     anchors.bottom: parent.bottom
                     anchors.bottomMargin: 10
                     //height: 20
@@ -194,9 +198,16 @@ ApplicationWindow {
                         rankcalculator.computeanswer();
 
                         rankLabel.text = getRankString(rankcalculator.finalRank)
-                        finalScore.text = "Score: " + rankcalculator.finalResult
+                        finalScore.score = rankcalculator.finalResult;
                         rankDescription.text = rankDescriptionList[rankcalculator.finalRank];
                         rankImage.source = Qt.resolvedUrl("images/" + rankImageList[rankcalculator.finalRank]);
+
+                        physicalScoreLabel.score = rankcalculator.getPageScore(0);
+                        mentalScoreLabel.score = rankcalculator.getPageScore(1);
+                        socialScoreLabel.score = rankcalculator.getPageScore(2);
+                        accomplishmentScoreLabel.score = rankcalculator.getPageScore(3);
+                        bonusScoreLabel.score = rankcalculator.getPageScore(4);
+
                         mainComptView.resultsShown = true;
                         mainComptView.positionViewAtIndex(1, ListView.SnapPosition)
                     }
@@ -219,52 +230,117 @@ ApplicationWindow {
                     anchors.topMargin: 10
                     anchors.left: parent.left
                     anchors.leftMargin: 20
+                    //visible: false
                     //anchors.right: parent.right
                     //anchors.rightMargin: 20
                 }
 
-                Label {
-                    id: finalScore
-                    text: "Score:"
-                    font.bold: true
+                RowLayout {
+                    id: testshitLayout
                     anchors.left: parent.left
+                    anchors.right: parent.right
                     anchors.leftMargin: 20
+                    anchors.rightMargin: 20
                     anchors.top: rankImage.bottom
-                    anchors.topMargin: 10
-                }
+                    anchors.topMargin: 30
 
-                Label {
-                    id: rankHeader
-                    text: "Rank:"
-                    font.bold: true
-                    anchors.top: finalScore.bottom
-                    anchors.topMargin: 10
+                    spacing: 2
 
-                    anchors.left: parent.left
-                    anchors.right: parent.right
-                    anchors.leftMargin: 20
-                    anchors.rightMargin: 20
-                }
+                    Item {
+                        Layout.preferredWidth: 200
+                        Layout.preferredHeight: 100
 
-                Label {
-                    id: rankLabel
-                    anchors.top: rankHeader.bottom
-                    anchors.topMargin: 2
+                        Label {
+                            id: finalScore
+                            property int score: 0
+                            text: "Total Score: " + score
+                            font.bold: true
+                            anchors.left: parent.left
+                        }
 
-                    anchors.left: parent.left
-                    anchors.right: parent.right
-                    anchors.leftMargin: 20
-                    anchors.rightMargin: 20
+                        Label {
+                            id: rankHeader
+                            text: "Rank:"
+                            font.bold: true
+                            anchors.top: finalScore.bottom
+                            anchors.topMargin: 10
+                            anchors.left: parent.left
+                        }
 
-                    onTextChanged: {
-                        visible = text.length > 0 ? true : false;
+                        Label {
+                            id: rankLabel
+                            anchors.top: rankHeader.bottom
+                            anchors.topMargin: 2
+
+                            anchors.left: parent.left
+                            anchors.right: parent.right
+
+                            onTextChanged: {
+                                visible = text.length > 0 ? true : false;
+                            }
+                        }
+                    }
+
+                    Item {
+                        Layout.fillWidth: true
+                        Layout.preferredHeight: 100
+
+                        Label {
+                            id: physicalScoreLabel
+                            property int score: 0
+
+                            anchors.left: parent.left
+                            text: "Physical: " + score
+                        }
+
+                        Label {
+                            id: mentalScoreLabel
+                            anchors.left: parent.left
+                            anchors.top: physicalScoreLabel.bottom
+                            anchors.topMargin: 4
+
+                            property int score: 0
+                            text: "Mental: " + score
+                        }
+
+                        Label {
+                            id: socialScoreLabel
+                            anchors.left: parent.left
+                            anchors.top: mentalScoreLabel.bottom
+                            anchors.topMargin: 4
+
+                            property int score: 0
+                            text: "Social: " + score
+                        }
+
+                        Label {
+                            id: accomplishmentScoreLabel
+                            anchors.left: parent.left
+                            anchors.top: socialScoreLabel.bottom
+                            anchors.topMargin: 4
+
+                            property int score: 0
+                            text: "Accomplishment: " + score
+                        }
+
+                        Label {
+                            id: bonusScoreLabel
+                            anchors.left: parent.left
+                            anchors.top: accomplishmentScoreLabel.bottom
+                            anchors.topMargin: 4
+
+                            property int score: 0
+                            text: "Bonus: " + score
+                        }
                     }
                 }
 
+
                 Text {
                     id: rankDescription
-                    anchors.top: rankLabel.bottom
-                    anchors.topMargin: 8
+                    anchors.top: testshitLayout.bottom
+                    //anchors.bottom: parent.bottom
+                    anchors.topMargin: 20
 
                     anchors.left: parent.left
                     anchors.right: parent.right
@@ -273,13 +349,7 @@ ApplicationWindow {
 
                     verticalAlignment: Text.AlignTop
                     clip: false
-                    //visible: true
                     wrapMode: Text.WrapAtWordBoundaryOrAnywhere
-
-                    /*onTextChanged: {
-                        visible = text.length > 0 ? true : false;
-                    }
-                    */
                 }
 
                 Button {

@@ -88,3 +88,20 @@ RankCalculator::Rank RankCalculator::getFinalRank()
 {
     return rank;
 }
+
+int RankCalculator::getPageScore(int page)
+{
+    int result = 0;
+    if (page >= 0 && page <= 4)
+    {
+        for (int j = 0; j < 17; j++)
+        {
+            if (answers[page][j])
+            {
+                result += scores[page][j];
+            }
+        }
+    }
+
+    return result;
+}

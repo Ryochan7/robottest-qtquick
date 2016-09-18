@@ -26,6 +26,7 @@ public:
     explicit RankCalculator(QObject *parent = 0);
     int getFinalResult();
     Rank getFinalRank();
+    Q_INVOKABLE int getPageScore(int page);
 
 
 protected:
