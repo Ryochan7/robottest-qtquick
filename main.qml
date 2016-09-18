@@ -236,7 +236,7 @@ ApplicationWindow {
                 }
 
                 RowLayout {
-                    id: testshitLayout
+                    id: scoresLayout
                     anchors.left: parent.left
                     anchors.right: parent.right
                     anchors.leftMargin: 20
@@ -338,7 +338,7 @@ ApplicationWindow {
 
                 Text {
                     id: rankDescription
-                    anchors.top: testshitLayout.bottom
+                    anchors.top: scoresLayout.bottom
                     //anchors.bottom: parent.bottom
                     anchors.topMargin: 20
 
