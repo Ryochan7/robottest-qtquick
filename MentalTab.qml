@@ -12,6 +12,7 @@ Tab {
     ScrollView
     {
         id: scroll
+        flickableItem.flickableDirection: Flickable.VerticalFlick
 
         Column {
             id: content

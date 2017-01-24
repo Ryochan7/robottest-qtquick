@@ -221,6 +221,7 @@ ApplicationWindow {
                 height: mainComptView.height
                 visible: mainComptView.currentIndex === 1 && mainComptView.resultsShown
                 horizontalScrollBarPolicy: Qt.ScrollBarAlwaysOff
+                flickableItem.flickableDirection: Flickable.VerticalFlick
 
                 ColumnLayout {
                     id: rightColi
@@ -239,12 +240,14 @@ ApplicationWindow {
 
                     Flow {
                         id: scoresLayout
+                        anchors.left: parent.left
+                        anchors.right: parent.right
 
-                        spacing: 50
+                        spacing: 100
 
                         Column {
                             spacing: 4
-                            width: 250
+                            //width: 250
 
                             Label {
                                 id: finalScore
@@ -276,7 +279,7 @@ ApplicationWindow {
 
                         Column {
                             spacing: 4
-                            width: 200
+                            //width: 200
 
                             Label {
                                 id: physicalScoreLabel
@@ -327,6 +330,9 @@ ApplicationWindow {
                     Button {
                         id: returnToTestButton
                         text: qsTr("\u2190 Back");
+                        anchors.left: parent.left
+                        anchors.right: parent.right
+
                         onClicked: {
                             mainComptView.positionViewAtIndex(0, ListView.SnapPosition)
                         }
