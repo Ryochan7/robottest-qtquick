@@ -58,6 +58,8 @@ ApplicationWindow {
         "successful.png"
     ];
 
+    property real fontSizeMulti: Qt.platform.os !== "android" ? 1.0 : 1.33
+
     function getRankString(rank)
     {
         var text = "";
@@ -97,11 +99,38 @@ ApplicationWindow {
         return text;
     }
 
+    MessageDialog {
+        id: aboutDialog
+        title: qsTr("About")
+        text: qsTr("Robot Test")
+        informativeText: qsTr("Based on The Robot Test version 4.0")
+        standardButtons: StandardButton.Ok
+    }
+
     menuBar: MenuBar {
         id: mainMenuBar
 
         Menu {
             title: qsTr("File")
+
+            MenuItem {
+                text: qsTr("Quiz")
+                onTriggered: mainComptView.positionViewAtBeginning()
+            }
+
+            MenuItem {
+                text: qsTr("Rankings")
+                onTriggered: mainComptView.positionViewAtIndex(2, ListView.SnapToItem)
+            }
+
+            MenuSeparator {
+
+            }
+
+            MenuItem {
+                text: qsTr("About")
+                onTriggered: aboutDialog.open()
+            }
 
             MenuItem {
                 text: qsTr("Exit")
@@ -130,7 +159,7 @@ ApplicationWindow {
                 id: tabsItem
                 width: mainComptView.width
                 height: mainComptView.height
-                visible: mainComptView.currentIndex === 0
+                //visible: mainComptView.currentIndex === 0
 
                 TabView {
                     id: tabView
@@ -219,7 +248,7 @@ ApplicationWindow {
             ScrollView {
                 width: mainComptView.width
                 height: mainComptView.height
-                visible: mainComptView.currentIndex === 1 && mainComptView.resultsShown
+                //visible: mainComptView.currentIndex === 1 && mainComptView.resultsShown
                 horizontalScrollBarPolicy: Qt.ScrollBarAlwaysOff
                 flickableItem.flickableDirection: Flickable.VerticalFlick
 
@@ -234,8 +263,10 @@ ApplicationWindow {
                         id: rankImage
                         source: ""
                         fillMode: Image.PreserveAspectFit
-                        Layout.preferredWidth: mainComptView.height * 0.25
-                        Layout.preferredHeight: mainComptView.height * 0.25
+                        Layout.preferredWidth: mainComptView.height * 0.35
+                        Layout.preferredHeight: mainComptView.height * 0.35
+                        //Layout.preferredWidth: 300
+                        //Layout.preferredHeight: 300
                     }
 
                     Flow {
@@ -335,6 +366,83 @@ ApplicationWindow {
 
                         onClicked: {
                             mainComptView.positionViewAtIndex(0, ListView.SnapPosition)
+                        }
+                    }
+                }
+            }
+
+            Item {
+                id: rankingListItem
+                width: mainComptView.width
+                height: mainComptView.height
+
+                Text {
+                    id: rankingPageHeading
+                    anchors.left: parent.left
+                    anchors.right: parent.right
+                    anchors.top: parent.top
+                    text: qsTr("Rankings")
+
+                    font.pointSize: 24 * fontSizeMulti
+                    horizontalAlignment: Text.AlignHCenter
+                    verticalAlignment: Text.AlignVCenter
+                }
+
+                ListView {
+                    id: rankingsView
+                    model: rankDescriptionList.length
+                    anchors.left: parent.left
+                    anchors.right: parent.right
+                    anchors.top: rankingPageHeading.bottom
+                    anchors.bottom: parent.bottom
+                    clip: true
+                    anchors {
+                        topMargin: 10
+                        bottomMargin: 0
+                        leftMargin: 6
+                        rightMargin: 6
+                    }
+
+                    delegate: ColumnLayout {
+                        width: parent.width
+                        spacing: 10
+
+                        Image {
+                            id: rankingListImage
+                            source: Qt.resolvedUrl("images/" + rankImageList[index])
+                            Layout.preferredWidth: mainComptView.height * 0.30
+                            Layout.preferredHeight: mainComptView.height * 0.30
+                            //width: parent.width
+                            //height: 100
+                            fillMode: Image.PreserveAspectFit
+                        }
+
+                        Text {
+                            id: rankingListText
+                            //anchors.left: parent.left
+                            //anchors.right: parent.right
+                            //anchors.top: rankingListImage.bottom
+                            //anchors.topMargin: 10
+
+                            text: rankDescriptionList[index]
+                            wrapMode: Text.WrapAtWordBoundaryOrAnywhere
+                            Layout.fillWidth: true
+                        }
+
+                        Rectangle {
+                            Layout.preferredWidth: parent.width
+                            Layout.preferredHeight: 2
+                            //width: parent.width
+                            //height: 2
+                            //anchors.top: rankingListText.bottom
+                            color: "#d3d3d3"
+                            visible: index !== (rankDescriptionList.length-1)
+                        }
+
+                        Item {
+                            width: parent.width
+                            height: 10
+                            visible: index !== (rankDescriptionList.length-1)
                         }
                     }
                 }
