@@ -6,6 +6,7 @@
         <file>SocialTab.qml</file>
         <file>AccomplishmentsTab.qml</file>
         <file>BonusRoundTab.qml</file>
+        <file>RankingListPage.qml</file>
     </qresource>
     <qresource prefix="/images">
         <file alias="cyborg.png">images/cyborg.png</file>

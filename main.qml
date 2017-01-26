@@ -115,12 +115,25 @@ ApplicationWindow {
 
             MenuItem {
                 text: qsTr("Quiz")
-                onTriggered: mainComptView.positionViewAtBeginning()
+                //onTriggered: mainComptView.positionViewAtBeginning()
+                onTriggered: {
+                    if (mainStack.depth > 1)
+                    {
+                        mainStack.pop();
+                    }
+
+                    mainComptView.positionViewAtIndex(0, ListView.SnapToItem)
+                }
             }
 
             MenuItem {
                 text: qsTr("Rankings")
-                onTriggered: mainComptView.positionViewAtIndex(2, ListView.SnapToItem)
+                onTriggered: {
+                    if (mainStack.depth == 1)
+                    {
+                        mainStack.push(Qt.resolvedUrl("RankingListPage.qml"));
+                    }
+                }
             }
 
             MenuSeparator {
@@ -139,310 +152,245 @@ ApplicationWindow {
         }
     }
 
-    ListView {
-        id: mainComptView
-        anchors.left: parent.left
-        anchors.right: parent.right
+    StackView {
+        id: mainStack
 
-        anchors.top: parent.top
-        anchors.bottom: parent.bottom
-        anchors.bottomMargin: 10
+        anchors.fill: parent
+        // Disable transition
+        delegate: StackViewDelegate {
 
-        orientation: ListView.Horizontal
-        highlightRangeMode: ListView.StrictlyEnforceRange
-        interactive: false
+        }
 
-        property bool resultsShown: false
+        initialItem: ListView {
+            id: mainComptView
+            objectName: "mainComptView"
 
-        model: ObjectModel {
-            Item {
-                id: tabsItem
-                width: mainComptView.width
-                height: mainComptView.height
-                //visible: mainComptView.currentIndex === 0
+            anchors.left: parent.left
+            anchors.right: parent.right
 
-                TabView {
-                    id: tabView
+            anchors.top: parent.top
+            anchors.bottom: parent.bottom
+            anchors.bottomMargin: 10
 
-                    visible: true
-                    frameVisible: true
-                    currentIndex: 0
-                    tabsVisible: true
-                    tabPosition: 1
+            orientation: ListView.Horizontal
+            highlightRangeMode: ListView.StrictlyEnforceRange
+            interactive: false
 
-                    anchors.top: parent.top
-                    anchors.left: parent.left
-                    anchors.right: parent.right
-                    anchors.bottom: newComputeButton.top
-                    anchors.bottomMargin: 20
+            property bool resultsShown: false
 
-                    //width: parent.width
-                    //height: parent.height - 40
+            model: ObjectModel {
+                Item {
+                    id: tabsItem
+                    width: mainComptView.width
+                    height: mainComptView.height
+                    //visible: mainComptView.currentIndex === 0
 
-                    PhysicalTab {
-                        anchors.fill: parent
-                        anchors.topMargin: 10
-                        anchors.bottomMargin: 10
-                    }
+                    TabView {
+                        id: tabView
 
-                    MentalTab {
-                        anchors.fill: parent
-                        anchors.topMargin: 10
-                        anchors.bottomMargin: 10
+                        visible: true
+                        frameVisible: true
+                        currentIndex: 0
+                        tabsVisible: true
+                        tabPosition: 1
 
-                    }
-
-                    SocialTab {
-                        anchors.fill: parent
-                        anchors.topMargin: 10
-                        anchors.bottomMargin: 10
-
-                    }
-
-                    AccomplishmentsTab {
-                        anchors.fill: parent
-                        anchors.topMargin: 10
-                        anchors.bottomMargin: 10
-                    }
-
-                    BonusRoundTab {
-                        anchors.fill: parent
-                        anchors.topMargin: 10
-                        anchors.bottomMargin: 10
-                    }
-                }
-
-                Button {
-                    id: newComputeButton
-                    text: qsTr("Compute!")
-                    //anchors.top: tabView.bottom
-                    //anchors.topMargin: 10
-                    anchors.left: parent.left
-                    anchors.leftMargin: 10
-                    anchors.right: parent.right
-                    anchors.rightMargin: 20
-                    anchors.bottom: parent.bottom
-                    anchors.bottomMargin: 10
-                    //height: 20
-                    tooltip: qsTr("Compute final score and your rank")
-                    onClicked: {
-                        rankcalculator.computeanswer();
-
-                        rankLabel.text = getRankString(rankcalculator.finalRank)
-                        finalScore.score = rankcalculator.finalResult;
-                        rankDescription.text = rankDescriptionList[rankcalculator.finalRank];
-                        rankImage.source = Qt.resolvedUrl("images/" + rankImageList[rankcalculator.finalRank]);
-
-                        physicalScoreLabel.score = rankcalculator.getPageScore(0);
-                        mentalScoreLabel.score = rankcalculator.getPageScore(1);
-                        socialScoreLabel.score = rankcalculator.getPageScore(2);
-                        accomplishmentScoreLabel.score = rankcalculator.getPageScore(3);
-                        bonusScoreLabel.score = rankcalculator.getPageScore(4);
-
-                        mainComptView.resultsShown = true;
-                        mainComptView.positionViewAtIndex(1, ListView.SnapPosition)
-                    }
-                }
-            }
-
-            ScrollView {
-                width: mainComptView.width
-                height: mainComptView.height
-                //visible: mainComptView.currentIndex === 1 && mainComptView.resultsShown
-                horizontalScrollBarPolicy: Qt.ScrollBarAlwaysOff
-                flickableItem.flickableDirection: Flickable.VerticalFlick
-
-                ColumnLayout {
-                    id: rightColi
-                    width: mainComptView.width - 40
-                    y: 10
-                    x: 20
-                    spacing: 20
-
-                    Image {
-                        id: rankImage
-                        source: ""
-                        fillMode: Image.PreserveAspectFit
-                        Layout.preferredWidth: mainComptView.height * 0.35
-                        Layout.preferredHeight: mainComptView.height * 0.35
-                        //Layout.preferredWidth: 300
-                        //Layout.preferredHeight: 300
-                    }
-
-                    Flow {
-                        id: scoresLayout
+                        anchors.top: parent.top
                         anchors.left: parent.left
                         anchors.right: parent.right
+                        anchors.bottom: newComputeButton.top
+                        anchors.bottomMargin: 20
 
-                        spacing: 100
+                        //width: parent.width
+                        //height: parent.height - 40
 
-                        Column {
-                            spacing: 4
-                            //width: 250
-
-                            Label {
-                                id: finalScore
-                                property int score: 0
-                                text: "Total Score: " + score
-                                font.bold: true
-                            }
-
-                            Label {
-                                id: rankHeader
-                                text: "Rank:"
-                                font.bold: true
-                                wrapMode: Text.WrapAtWordBoundaryOrAnywhere
-                            }
-
-                            Label {
-                                id: rankLabel
-
-                                onTextChanged: {
-                                    visible = text.length > 0 ? true : false;
-                                }
-                            }
-
-                            Item {
-                                height: 10
-                                width: 1
-                            }
+                        PhysicalTab {
+                            anchors.fill: parent
+                            anchors.topMargin: 10
+                            anchors.bottomMargin: 10
                         }
 
-                        Column {
-                            spacing: 4
-                            //width: 200
+                        MentalTab {
+                            anchors.fill: parent
+                            anchors.topMargin: 10
+                            anchors.bottomMargin: 10
 
-                            Label {
-                                id: physicalScoreLabel
-                                property int score: 0
-
-                                text: "Physical: " + score
-                            }
-
-                            Label {
-                                id: mentalScoreLabel
-
-                                property int score: 0
-                                text: "Mental: " + score
-                            }
-
-                            Label {
-                                id: socialScoreLabel
-
-                                property int score: 0
-                                text: "Social: " + score
-                            }
-
-                            Label {
-                                id: accomplishmentScoreLabel
-
-                                property int score: 0
-                                text: "Accomplishment: " + score
-                            }
-
-                            Label {
-                                id: bonusScoreLabel
-
-                                property int score: 0
-                                text: "Bonus: " + score
-                            }
                         }
-                    }
 
+                        SocialTab {
+                            anchors.fill: parent
+                            anchors.topMargin: 10
+                            anchors.bottomMargin: 10
 
-                    Text {
-                        id: rankDescription
+                        }
 
-                        wrapMode: Text.WrapAtWordBoundaryOrAnywhere
-                        Layout.fillWidth: true
-                        Layout.alignment: Qt.AlignCenter
+                        AccomplishmentsTab {
+                            anchors.fill: parent
+                            anchors.topMargin: 10
+                            anchors.bottomMargin: 10
+                        }
+
+                        BonusRoundTab {
+                            anchors.fill: parent
+                            anchors.topMargin: 10
+                            anchors.bottomMargin: 10
+                        }
                     }
 
                     Button {
-                        id: returnToTestButton
-                        text: qsTr("\u2190 Back");
+                        id: newComputeButton
+                        text: qsTr("Compute!")
+                        //anchors.top: tabView.bottom
+                        //anchors.topMargin: 10
                         anchors.left: parent.left
+                        anchors.leftMargin: 10
                         anchors.right: parent.right
-
+                        anchors.rightMargin: 20
+                        anchors.bottom: parent.bottom
+                        anchors.bottomMargin: 10
+                        //height: 20
+                        tooltip: qsTr("Compute final score and your rank")
                         onClicked: {
-                            mainComptView.positionViewAtIndex(0, ListView.SnapPosition)
+                            rankcalculator.computeanswer();
+
+                            rankLabel.text = getRankString(rankcalculator.finalRank)
+                            finalScore.score = rankcalculator.finalResult;
+                            rankDescription.text = rankDescriptionList[rankcalculator.finalRank];
+                            rankImage.source = Qt.resolvedUrl("images/" + rankImageList[rankcalculator.finalRank]);
+
+                            physicalScoreLabel.score = rankcalculator.getPageScore(0);
+                            mentalScoreLabel.score = rankcalculator.getPageScore(1);
+                            socialScoreLabel.score = rankcalculator.getPageScore(2);
+                            accomplishmentScoreLabel.score = rankcalculator.getPageScore(3);
+                            bonusScoreLabel.score = rankcalculator.getPageScore(4);
+
+                            mainComptView.resultsShown = true;
+                            mainComptView.positionViewAtIndex(1, ListView.SnapPosition)
                         }
                     }
                 }
-            }
 
-            Item {
-                id: rankingListItem
-                width: mainComptView.width
-                height: mainComptView.height
+                ScrollView {
+                    width: mainComptView.width
+                    height: mainComptView.height
+                    //visible: mainComptView.currentIndex === 1 && mainComptView.resultsShown
+                    horizontalScrollBarPolicy: Qt.ScrollBarAlwaysOff
+                    flickableItem.flickableDirection: Flickable.VerticalFlick
 
-                Text {
-                    id: rankingPageHeading
-                    anchors.left: parent.left
-                    anchors.right: parent.right
-                    anchors.top: parent.top
-                    text: qsTr("Rankings")
-
-                    font.pointSize: 24 * fontSizeMulti
-                    horizontalAlignment: Text.AlignHCenter
-                    verticalAlignment: Text.AlignVCenter
-                }
-
-                ListView {
-                    id: rankingsView
-                    model: rankDescriptionList.length
-                    anchors.left: parent.left
-                    anchors.right: parent.right
-                    anchors.top: rankingPageHeading.bottom
-                    anchors.bottom: parent.bottom
-                    clip: true
-                    anchors {
-                        topMargin: 10
-                        bottomMargin: 0
-                        leftMargin: 6
-                        rightMargin: 6
-                    }
-
-                    delegate: ColumnLayout {
-                        width: parent.width
-                        spacing: 10
+                    ColumnLayout {
+                        id: rightColi
+                        width: mainComptView.width - 40
+                        y: 10
+                        x: 20
+                        spacing: 20
 
                         Image {
-                            id: rankingListImage
-                            source: Qt.resolvedUrl("images/" + rankImageList[index])
-                            Layout.preferredWidth: mainComptView.height * 0.30
-                            Layout.preferredHeight: mainComptView.height * 0.30
-                            //width: parent.width
-                            //height: 100
+                            id: rankImage
+                            source: ""
                             fillMode: Image.PreserveAspectFit
+                            Layout.preferredWidth: mainComptView.height * 0.35
+                            Layout.preferredHeight: mainComptView.height * 0.35
+                            //Layout.preferredWidth: 300
+                            //Layout.preferredHeight: 300
                         }
+
+                        Flow {
+                            id: scoresLayout
+                            anchors.left: parent.left
+                            anchors.right: parent.right
+
+                            spacing: 100
+
+                            Column {
+                                spacing: 4
+                                //width: 250
+
+                                Label {
+                                    id: finalScore
+                                    property int score: 0
+                                    text: "Total Score: " + score
+                                    font.bold: true
+                                }
+
+                                Label {
+                                    id: rankHeader
+                                    text: "Rank:"
+                                    font.bold: true
+                                    wrapMode: Text.WrapAtWordBoundaryOrAnywhere
+                                }
+
+                                Label {
+                                    id: rankLabel
+
+                                    onTextChanged: {
+                                        visible = text.length > 0 ? true : false;
+                                    }
+                                }
+
+                                Item {
+                                    height: 10
+                                    width: 1
+                                }
+                            }
+
+                            Column {
+                                spacing: 4
+                                //width: 200
+
+                                Label {
+                                    id: physicalScoreLabel
+                                    property int score: 0
+
+                                    text: "Physical: " + score
+                                }
+
+                                Label {
+                                    id: mentalScoreLabel
+
+                                    property int score: 0
+                                    text: "Mental: " + score
+                                }
+
+                                Label {
+                                    id: socialScoreLabel
+
+                                    property int score: 0
+                                    text: "Social: " + score
+                                }
+
+                                Label {
+                                    id: accomplishmentScoreLabel
+
+                                    property int score: 0
+                                    text: "Accomplishment: " + score
+                                }
+
+                                Label {
+                                    id: bonusScoreLabel
+
+                                    property int score: 0
+                                    text: "Bonus: " + score
+                                }
+                            }
+                        }
+
 
                         Text {
-                            id: rankingListText
-                            //anchors.left: parent.left
-                            //anchors.right: parent.right
-                            //anchors.top: rankingListImage.bottom
-                            //anchors.topMargin: 10
+                            id: rankDescription
 
-                            text: rankDescriptionList[index]
                             wrapMode: Text.WrapAtWordBoundaryOrAnywhere
                             Layout.fillWidth: true
+                            Layout.alignment: Qt.AlignCenter
                         }
 
-                        Rectangle {
-                            Layout.preferredWidth: parent.width
-                            Layout.preferredHeight: 2
-                            //width: parent.width
-                            //height: 2
-                            //anchors.top: rankingListText.bottom
-                            color: "#d3d3d3"
-                            visible: index !== (rankDescriptionList.length-1)
-                        }
+                        Button {
+                            id: returnToTestButton
+                            text: qsTr("\u2190 Back");
+                            anchors.left: parent.left
+                            anchors.right: parent.right
 
-                        Item {
-                            width: parent.width
-                            height: 10
-                            visible: index !== (rankDescriptionList.length-1)
+                            onClicked: {
+                                mainComptView.positionViewAtIndex(0, ListView.SnapPosition)
+                            }
                         }
                     }
                 }
