@@ -1,28 +1,24 @@
-import QtQuick 2.0
-import QtQuick.Controls 1.2
-import QtQuick.Layouts 1.1
+import QtQuick 2.7
+import QtQuick.Controls 2.0
 
-Tab {
-    id: physicalTab
-    title: "Physical"
-
+Item {
     property int scorePageNum: 0
     property int currentQuestion: 0
 
-    ScrollView {
-        id: scroll
-        flickableItem.flickableDirection: Flickable.VerticalFlick
+    Flickable
+    {
+        focus: true
+        ScrollBar.vertical: ScrollBar {
+            active: true
+        }
+
+        contentWidth: content.childrenRect.width
+        contentHeight: content.childrenRect.height
+        width: parent.width
+        height: parent.height
 
         Column {
             id: content
-
-            GridLayout {
-                id: gridLayout1
-
-                transformOrigin: Item.Center
-                rows: 17
-                columns: 1
-                rowSpacing: 6
 
                 CheckBox {
                     id: attractiveBox
@@ -178,7 +174,7 @@ Tab {
                         rankcalculator.checkanswer(scorePageNum, 16, checked)
                     }
                 }
-            }
+
         }
     }
 }

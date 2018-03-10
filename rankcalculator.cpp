@@ -39,7 +39,7 @@ void RankCalculator::computeanswer()
 
     result = totalScore;
 
-    if (result >= 0 && result <= 8)
+    if (result <= 8)
     {
         rank = GrandWizard;
     }

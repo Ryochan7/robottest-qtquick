@@ -1,12 +1,12 @@
 <RCC>
     <qresource prefix="/">
         <file>main.qml</file>
-        <file>PhysicalTab.qml</file>
-        <file>MentalTab.qml</file>
-        <file>SocialTab.qml</file>
-        <file>AccomplishmentsTab.qml</file>
-        <file>BonusRoundTab.qml</file>
         <file>RankingListPage.qml</file>
+        <file>AccomplishmentsSection.qml</file>
+        <file>BonusRoundSection.qml</file>
+        <file>MentalSection.qml</file>
+        <file>PhysicalSection.qml</file>
+        <file>SocialSection.qml</file>
     </qresource>
     <qresource prefix="/images">
         <file alias="cyborg.png">images/cyborg.png</file>
@@ -18,5 +18,6 @@
         <file alias="successful.png">images/successful.png</file>
         <file alias="wizard.png">images/wizard.png</file>
         <file alias="wizardapprentice.png">images/wizardapprentice.png</file>
+        <file alias="menu.png">images/menu.png</file>
     </qresource>
 </RCC>

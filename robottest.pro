@@ -1,10 +1,6 @@
-TEMPLATE = app
-
 QT += qml quick
 
-QT += widgets
-
-#CONFIG += c++11
+CONFIG += c++11
 
 SOURCES += main.cpp \
     rankcalculator.cpp
@@ -15,7 +11,9 @@ RESOURCES += qml.qrc
 QML_IMPORT_PATH =
 
 # Default rules for deployment.
-include(deployment.pri)
+qnx: target.path = /tmp/$${TARGET}/bin
+else: unix:!android: target.path = /opt/$${TARGET}/bin
+!isEmpty(target.path): INSTALLS += target
 
 HEADERS += \
     rankcalculator.h
