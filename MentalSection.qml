@@ -13,6 +13,8 @@ Item {
             active: true
         }
 
+        flickableDirection: Flickable.VerticalFlick
+
         contentWidth: content.childrenRect.width
         contentHeight: content.childrenRect.height
         width: parent.width
