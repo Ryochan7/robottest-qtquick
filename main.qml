@@ -387,8 +387,7 @@ ApplicationWindow {
                                 id: scoresLayout
                                 anchors.left: parent.left
                                 anchors.right: parent.right
-
-                                spacing: 100
+                                spacing: 50
 
                                 Column {
                                     spacing: 4
