@@ -131,7 +131,7 @@ ApplicationWindow {
 
             Button {
                 text: "Close"
-                anchors.horizontalCenter: parent.horizontalCenter
+                Layout.alignment: Qt.AlignHCenter
                 width: Math.max(implicitWidth, Math.min(implicitWidth * 2, mainWindow.availableWidth / 3))
 
                 onClicked: {
@@ -358,6 +358,7 @@ ApplicationWindow {
                             active: true
                         }
 
+                        flickableDirection: Flickable.VerticalFlick
                         contentWidth: rightColi.childrenRect.width
                         contentHeight: rightColi.childrenRect.height
                         width: parent.width
@@ -385,8 +386,7 @@ ApplicationWindow {
 
                             Flow {
                                 id: scoresLayout
-                                anchors.left: parent.left
-                                anchors.right: parent.right
+                                Layout.preferredWidth: parent.width
                                 spacing: 50
 
                                 Column {
@@ -474,8 +474,7 @@ ApplicationWindow {
                             Button {
                                 id: returnToTestButton
                                 text: qsTr("\u2190 Back");
-                                anchors.left: parent.left
-                                anchors.right: parent.right
+                                Layout.preferredWidth: parent.width
 
                                 onClicked: {
                                     mainComptView.positionViewAtIndex(0, ListView.SnapPosition)
