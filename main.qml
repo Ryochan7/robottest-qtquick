@@ -13,6 +13,10 @@ ApplicationWindow {
     minimumWidth: 300
     minimumHeight: minimumWidth
     title: qsTr("Robot Test 4.0")
+    RankCalcBackend
+    {
+        id: rankCalcBack
+    }
 
     property var rankDescriptionList: [
         "No longer human, you are barely attached to the living world by a thin thread. " +
@@ -294,23 +298,23 @@ ApplicationWindow {
                         clip: true
 
                         PhysicalSection {
-
+                            rankCalculator: rankCalcBack.rankCalculator
                         }
 
                         MentalSection {
-
+                            rankCalculator: rankCalcBack.rankCalculator
                         }
 
                         SocialSection {
-
+                            rankCalculator: rankCalcBack.rankCalculator
                         }
 
                         AccomplishmentsSection {
-
+                            rankCalculator: rankCalcBack.rankCalculator
                         }
 
                         BonusRoundSection {
-
+                            rankCalculator: rankCalcBack.rankCalculator
                         }
                     }
 
@@ -327,18 +331,19 @@ ApplicationWindow {
                         anchors.bottomMargin: 10
 
                         onClicked: {
-                            rankcalculator.computeanswer();
+                            var rankCalculator = rankCalcBack.rankCalculator;
+                            rankCalculator.computeanswer();
 
-                            rankLabel.text = getRankString(rankcalculator.finalRank)
-                            finalScore.score = rankcalculator.finalResult;
-                            rankDescription.text = rankDescriptionList[rankcalculator.finalRank];
-                            rankImage.source = Qt.resolvedUrl("images/" + rankImageList[rankcalculator.finalRank]);
+                            rankLabel.text = getRankString(rankCalculator.finalRank)
+                            finalScore.score = rankCalculator.finalResult;
+                            rankDescription.text = rankDescriptionList[rankCalculator.finalRank];
+                            rankImage.source = Qt.resolvedUrl("images/" + rankImageList[rankCalculator.finalRank]);
 
-                            physicalScoreLabel.score = rankcalculator.getPageScore(0);
-                            mentalScoreLabel.score = rankcalculator.getPageScore(1);
-                            socialScoreLabel.score = rankcalculator.getPageScore(2);
-                            accomplishmentScoreLabel.score = rankcalculator.getPageScore(3);
-                            bonusScoreLabel.score = rankcalculator.getPageScore(4);
+                            physicalScoreLabel.score = rankCalculator.getPageScore(0);
+                            mentalScoreLabel.score = rankCalculator.getPageScore(1);
+                            socialScoreLabel.score = rankCalculator.getPageScore(2);
+                            accomplishmentScoreLabel.score = rankCalculator.getPageScore(3);
+                            bonusScoreLabel.score = rankCalculator.getPageScore(4);
 
                             mainComptView.resultsShown = true;
                             mainComptView.positionViewAtIndex(1, ListView.SnapPosition)

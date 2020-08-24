@@ -4,6 +4,7 @@ import QtQuick.Controls 2.0
 Item {
     property int scorePageNum: 2
     property int currentQuestion: 0
+    property QtObject rankCalculator
 
     Flickable {
         focus: true
@@ -27,7 +28,7 @@ Item {
                 z: 1
 
                 onCheckedChanged: {
-                    rankcalculator.checkanswer(scorePageNum, 0, checked)
+                    rankCalculator.checkanswer(scorePageNum, 0, checked)
                 }
             }
 
@@ -37,7 +38,7 @@ Item {
                 smooth: true
 
                 onCheckedChanged: {
-                    rankcalculator.checkanswer(scorePageNum, 1, checked)
+                    rankCalculator.checkanswer(scorePageNum, 1, checked)
                 }
             }
 
@@ -46,7 +47,7 @@ Item {
                 text: qsTr("Not a virgin")
 
                 onCheckedChanged: {
-                    rankcalculator.checkanswer(scorePageNum, 2, checked)
+                    rankCalculator.checkanswer(scorePageNum, 2, checked)
                 }
             }
 
@@ -55,7 +56,7 @@ Item {
                 text: qsTr("Had sex with multiple partners before")
 
                 onCheckedChanged: {
-                    rankcalculator.checkanswer(scorePageNum, 3, checked)
+                    rankCalculator.checkanswer(scorePageNum, 3, checked)
                 }
             }
 
@@ -64,7 +65,7 @@ Item {
                 text: qsTr("Kissed romantically before")
 
                 onCheckedChanged: {
-                    rankcalculator.checkanswer(scorePageNum, 4, checked)
+                    rankCalculator.checkanswer(scorePageNum, 4, checked)
                 }
             }
 
@@ -73,7 +74,7 @@ Item {
                 text: qsTr("Held hands romantically before")
 
                 onCheckedChanged: {
-                    rankcalculator.checkanswer(scorePageNum, 5, checked)
+                    rankCalculator.checkanswer(scorePageNum, 5, checked)
                 }
             }
 
@@ -82,7 +83,7 @@ Item {
                 text: qsTr("Had a relationship in the last 6 months")
 
                 onCheckedChanged: {
-                    rankcalculator.checkanswer(scorePageNum, 6, checked)
+                    rankCalculator.checkanswer(scorePageNum, 6, checked)
                 }
             }
 
@@ -91,7 +92,7 @@ Item {
                 text: qsTr("Have a good relationship with family")
 
                 onCheckedChanged: {
-                    rankcalculator.checkanswer(scorePageNum, 7, checked)
+                    rankCalculator.checkanswer(scorePageNum, 7, checked)
                 }
             }
 
@@ -100,7 +101,7 @@ Item {
                 text: qsTr("Have at least one friend in real life")
 
                 onCheckedChanged: {
-                    rankcalculator.checkanswer(scorePageNum, 8, checked)
+                    rankCalculator.checkanswer(scorePageNum, 8, checked)
                 }
             }
 
@@ -109,7 +110,7 @@ Item {
                 text: qsTr("Have at least several friends in real life")
 
                 onCheckedChanged: {
-                    rankcalculator.checkanswer(scorePageNum, 9, checked)
+                    rankCalculator.checkanswer(scorePageNum, 9, checked)
                 }
             }
 
@@ -118,7 +119,7 @@ Item {
                 text: qsTr("Socialise at least once a week")
 
                 onCheckedChanged: {
-                    rankcalculator.checkanswer(scorePageNum, 10, checked)
+                    rankCalculator.checkanswer(scorePageNum, 10, checked)
                 }
             }
 
@@ -127,7 +128,7 @@ Item {
                 text: qsTr("Socialise at least once a day")
 
                 onCheckedChanged: {
-                    rankcalculator.checkanswer(scorePageNum, 11, checked)
+                    rankCalculator.checkanswer(scorePageNum, 11, checked)
                 }
             }
 
@@ -136,7 +137,7 @@ Item {
                 text: qsTr("Leave the house on the regular")
 
                 onCheckedChanged: {
-                    rankcalculator.checkanswer(scorePageNum, 12, checked)
+                    rankCalculator.checkanswer(scorePageNum, 12, checked)
                 }
             }
 
@@ -145,7 +146,7 @@ Item {
                 text: qsTr("Enjoy being around others on occasion")
 
                 onCheckedChanged: {
-                    rankcalculator.checkanswer(scorePageNum, 13, checked)
+                    rankCalculator.checkanswer(scorePageNum, 13, checked)
                 }
             }
 
@@ -154,7 +155,7 @@ Item {
                 text: qsTr("Enjoy being arounds others when possible")
 
                 onCheckedChanged: {
-                    rankcalculator.checkanswer(scorePageNum, 14, checked)
+                    rankCalculator.checkanswer(scorePageNum, 14, checked)
                 }
             }
 
@@ -163,7 +164,7 @@ Item {
                 text: qsTr("Recreational screen-time up to 4h a day")
 
                 onCheckedChanged: {
-                    rankcalculator.checkanswer(scorePageNum, 15, checked)
+                    rankCalculator.checkanswer(scorePageNum, 15, checked)
                 }
             }
 
@@ -172,7 +173,7 @@ Item {
                 text: qsTr("Use social networks regularly")
 
                 onCheckedChanged: {
-                    rankcalculator.checkanswer(scorePageNum, 16, checked)
+                    rankCalculator.checkanswer(scorePageNum, 16, checked)
                 }
             }
 

@@ -4,6 +4,7 @@ import QtQuick.Controls 2.0
 Item {
     property int scorePageNum: 4
     property int currentQuestion: 0
+    property QtObject rankCalculator
 
     Flickable {
         focus: true
@@ -27,7 +28,7 @@ Item {
                 z: 1
 
                 onCheckedChanged: {
-                    rankcalculator.checkanswer(scorePageNum, 0, checked)
+                    rankCalculator.checkanswer(scorePageNum, 0, checked)
                 }
             }
 
@@ -37,7 +38,7 @@ Item {
                 smooth: true
 
                 onCheckedChanged: {
-                    rankcalculator.checkanswer(scorePageNum, 1, checked)
+                    rankCalculator.checkanswer(scorePageNum, 1, checked)
                 }
             }
 
@@ -46,7 +47,7 @@ Item {
                 text: qsTr("Have a very large number of contacts")
 
                 onCheckedChanged: {
-                    rankcalculator.checkanswer(scorePageNum, 2, checked)
+                    rankCalculator.checkanswer(scorePageNum, 2, checked)
                 }
             }
 
@@ -55,7 +56,7 @@ Item {
                 text: qsTr("Have little interest in anime")
 
                 onCheckedChanged: {
-                    rankcalculator.checkanswer(scorePageNum, 3, checked)
+                    rankCalculator.checkanswer(scorePageNum, 3, checked)
                 }
             }
 
@@ -64,7 +65,7 @@ Item {
                 text: qsTr("Have no interest in tabletop gaming")
 
                 onCheckedChanged: {
-                    rankcalculator.checkanswer(scorePageNum, 4, checked)
+                    rankCalculator.checkanswer(scorePageNum, 4, checked)
                 }
             }
 
@@ -73,7 +74,7 @@ Item {
                 text: qsTr("Gaming is mostly limited in console")
 
                 onCheckedChanged: {
-                    rankcalculator.checkanswer(scorePageNum, 5, checked)
+                    rankCalculator.checkanswer(scorePageNum, 5, checked)
                 }
             }
 
@@ -82,7 +83,7 @@ Item {
                 text: qsTr("Healthy view of the opposite sex")
 
                 onCheckedChanged: {
-                    rankcalculator.checkanswer(scorePageNum, 6, checked)
+                    rankCalculator.checkanswer(scorePageNum, 6, checked)
                 }
             }
 
@@ -91,7 +92,7 @@ Item {
                 text: qsTr("No criminal record as an adult")
 
                 onCheckedChanged: {
-                    rankcalculator.checkanswer(scorePageNum, 7, checked)
+                    rankCalculator.checkanswer(scorePageNum, 7, checked)
                 }
             }
 
@@ -100,7 +101,7 @@ Item {
                 text: qsTr("Been texted by a real person recently")
 
                 onCheckedChanged: {
-                    rankcalculator.checkanswer(scorePageNum, 8, checked)
+                    rankCalculator.checkanswer(scorePageNum, 8, checked)
                 }
             }
 
@@ -109,7 +110,7 @@ Item {
                 text: qsTr("Enjoy using YikYak and/or Snapchat")
 
                 onCheckedChanged: {
-                    rankcalculator.checkanswer(scorePageNum, 9, checked)
+                    rankCalculator.checkanswer(scorePageNum, 9, checked)
                 }
             }
 
@@ -118,7 +119,7 @@ Item {
                 text: qsTr("You have a decent smartphone")
 
                 onCheckedChanged: {
-                    rankcalculator.checkanswer(scorePageNum, 10, checked)
+                    rankCalculator.checkanswer(scorePageNum, 10, checked)
                 }
             }
 
@@ -127,7 +128,7 @@ Item {
                 text: qsTr("Fetish: None; Feet; BDSM; DP; etc.")
 
                 onCheckedChanged: {
-                    rankcalculator.checkanswer(scorePageNum, 11, checked)
+                    rankCalculator.checkanswer(scorePageNum, 11, checked)
                 }
             }
 
@@ -136,7 +137,7 @@ Item {
                 text: qsTr("Don't consume hentai; ecchi; etc. material")
 
                 onCheckedChanged: {
-                    rankcalculator.checkanswer(scorePageNum, 12, checked)
+                    rankCalculator.checkanswer(scorePageNum, 12, checked)
                 }
             }
         }

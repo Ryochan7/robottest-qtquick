@@ -3,6 +3,7 @@ QT += qml quick quickcontrols2
 CONFIG += c++11
 
 SOURCES += main.cpp \
+    backend/rankcalcbackend.cpp \
     rankcalculator.cpp
 
 RESOURCES += qml.qrc
@@ -16,6 +17,8 @@ else: unix:!android: target.path = /opt/$${TARGET}/bin
 !isEmpty(target.path): INSTALLS += target
 
 HEADERS += \
+    backend/rankcalcbackend.h \
+    constants.h \
     rankcalculator.h
 
 DISTFILES += \

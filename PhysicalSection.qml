@@ -4,6 +4,7 @@ import QtQuick.Controls 2.0
 Item {
     property int scorePageNum: 0
     property int currentQuestion: 0
+    property QtObject rankCalculator
 
     Flickable
     {
@@ -28,7 +29,7 @@ Item {
                     z: 1
 
                     onCheckedChanged: {
-                        rankcalculator.checkanswer(scorePageNum, 0, checked)
+                        rankCalculator.checkanswer(scorePageNum, 0, checked)
                     }
                 }
 
@@ -38,7 +39,7 @@ Item {
                     smooth: true
 
                     onCheckedChanged: {
-                        rankcalculator.checkanswer(scorePageNum, 1, checked)
+                        rankCalculator.checkanswer(scorePageNum, 1, checked)
                     }
                 }
 
@@ -47,7 +48,7 @@ Item {
                     text: qsTr("Particularly fit/strong/muscular")
 
                     onCheckedChanged: {
-                        rankcalculator.checkanswer(scorePageNum, 2, checked)
+                        rankCalculator.checkanswer(scorePageNum, 2, checked)
                     }
                 }
 
@@ -56,7 +57,7 @@ Item {
                     text: qsTr("At least 6'0 tall (M) / Good figure (F)")
 
                     onCheckedChanged: {
-                        rankcalculator.checkanswer(scorePageNum, 3, checked)
+                        rankCalculator.checkanswer(scorePageNum, 3, checked)
                     }
                 }
 
@@ -65,7 +66,7 @@ Item {
                     text: qsTr("Exercise regularly")
 
                     onCheckedChanged: {
-                        rankcalculator.checkanswer(scorePageNum, 4, checked)
+                        rankCalculator.checkanswer(scorePageNum, 4, checked)
                     }
                 }
 
@@ -74,7 +75,7 @@ Item {
                     text: qsTr("Have a decently healthy diet")
 
                     onCheckedChanged: {
-                        rankcalculator.checkanswer(scorePageNum, 5, checked)
+                        rankCalculator.checkanswer(scorePageNum, 5, checked)
                     }
                 }
 
@@ -83,7 +84,7 @@ Item {
                     text: qsTr("Minor or no physical abnormalities")
 
                     onCheckedChanged: {
-                        rankcalculator.checkanswer(scorePageNum, 6, checked)
+                        rankCalculator.checkanswer(scorePageNum, 6, checked)
                     }
                 }
 
@@ -92,7 +93,7 @@ Item {
                     text: qsTr("No smoking addiction - vaping included")
 
                     onCheckedChanged: {
-                        rankcalculator.checkanswer(scorePageNum, 7, checked)
+                        rankCalculator.checkanswer(scorePageNum, 7, checked)
                     }
                 }
 
@@ -101,7 +102,7 @@ Item {
                     text: qsTr("Don't smoke week / only occasionally")
 
                     onCheckedChanged: {
-                        rankcalculator.checkanswer(scorePageNum, 8, checked)
+                        rankCalculator.checkanswer(scorePageNum, 8, checked)
                     }
                 }
 
@@ -110,7 +111,7 @@ Item {
                     text: qsTr("No alcohol addiction")
 
                     onCheckedChanged: {
-                        rankcalculator.checkanswer(scorePageNum, 9, checked)
+                        rankCalculator.checkanswer(scorePageNum, 9, checked)
                     }
                 }
 
@@ -119,16 +120,16 @@ Item {
                     text: qsTr("No addiction to other drugs")
 
                     onCheckedChanged: {
-                        rankcalculator.checkanswer(scorePageNum, 10, checked)
+                        rankCalculator.checkanswer(scorePageNum, 10, checked)
                     }
                 }
 
                 CheckBox {
                     id: dentalBox
-                    text: qsTr("Good dental hygience")
+                    text: qsTr("Good dental hygiene")
 
                     onCheckedChanged: {
-                        rankcalculator.checkanswer(scorePageNum, 11, checked)
+                        rankCalculator.checkanswer(scorePageNum, 11, checked)
                     }
                 }
 
@@ -137,7 +138,7 @@ Item {
                     text: qsTr("Shower regularly")
 
                     onCheckedChanged: {
-                        rankcalculator.checkanswer(scorePageNum, 12, checked)
+                        rankCalculator.checkanswer(scorePageNum, 12, checked)
                     }
                 }
 
@@ -146,7 +147,7 @@ Item {
                     text: qsTr("Have at least a decent fashion sense")
 
                     onCheckedChanged: {
-                        rankcalculator.checkanswer(scorePageNum, 13, checked)
+                        rankCalculator.checkanswer(scorePageNum, 13, checked)
                     }
                 }
 
@@ -155,7 +156,7 @@ Item {
                     text: qsTr("Visit a doctor regularly")
 
                     onCheckedChanged: {
-                        rankcalculator.checkanswer(scorePageNum, 14, checked)
+                        rankCalculator.checkanswer(scorePageNum, 14, checked)
                     }
                 }
 
@@ -164,7 +165,7 @@ Item {
                     text: qsTr("Have a good hairstyle")
 
                     onCheckedChanged: {
-                        rankcalculator.checkanswer(scorePageNum, 15, checked)
+                        rankCalculator.checkanswer(scorePageNum, 15, checked)
                     }
                 }
 
@@ -173,7 +174,7 @@ Item {
                     text: qsTr("Take pride in your body")
 
                     onCheckedChanged: {
-                        rankcalculator.checkanswer(scorePageNum, 16, checked)
+                        rankCalculator.checkanswer(scorePageNum, 16, checked)
                     }
                 }
 

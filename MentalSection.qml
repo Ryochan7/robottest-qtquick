@@ -5,6 +5,7 @@ Item {
 
     property int scorePageNum: 1
     property int currentQuestion: 0
+    property QtObject rankCalculator
 
     Flickable
     {
@@ -29,7 +30,7 @@ Item {
                 z: 1
 
                 onCheckedChanged: {
-                    rankcalculator.checkanswer(1, 0, checked)
+                    rankCalculator.checkanswer(1, 0, checked)
                 }
             }
 
@@ -39,7 +40,7 @@ Item {
                 smooth: true
 
                 onCheckedChanged: {
-                    rankcalculator.checkanswer(1, 1, checked)
+                    rankCalculator.checkanswer(1, 1, checked)
                 }
             }
 
@@ -48,7 +49,7 @@ Item {
                 text: qsTr("Taking meds or thearpy if applicable")
 
                 onCheckedChanged: {
-                    rankcalculator.checkanswer(1, 2, checked)
+                    rankCalculator.checkanswer(1, 2, checked)
                 }
             }
 
@@ -57,7 +58,7 @@ Item {
                 text: qsTr("Feel content or happy most of the time")
 
                 onCheckedChanged: {
-                    rankcalculator.checkanswer(1, 3, checked)
+                    rankCalculator.checkanswer(1, 3, checked)
                 }
             }
 
@@ -66,7 +67,7 @@ Item {
                 text: qsTr("Feel love for someone, family included")
 
                 onCheckedChanged: {
-                    rankcalculator.checkanswer(1, 4, checked)
+                    rankCalculator.checkanswer(1, 4, checked)
                 }
             }
 
@@ -75,7 +76,7 @@ Item {
                 text: qsTr("You think you're a nice person")
 
                 onCheckedChanged: {
-                    rankcalculator.checkanswer(1, 5, checked)
+                    rankCalculator.checkanswer(1, 5, checked)
                 }
             }
 
@@ -84,7 +85,7 @@ Item {
                 text: qsTr("Not anxious around family / friends")
 
                 onCheckedChanged: {
-                    rankcalculator.checkanswer(1, 6, checked)
+                    rankCalculator.checkanswer(1, 6, checked)
                 }
             }
 
@@ -93,7 +94,7 @@ Item {
                 text: qsTr("Not uncomfortable around strangers")
 
                 onCheckedChanged: {
-                    rankcalculator.checkanswer(1, 7, checked)
+                    rankCalculator.checkanswer(1, 7, checked)
                 }
             }
 
@@ -102,7 +103,7 @@ Item {
                 text: qsTr("Don't feel anxious about going outside")
 
                 onCheckedChanged: {
-                    rankcalculator.checkanswer(1, 8, checked)
+                    rankCalculator.checkanswer(1, 8, checked)
                 }
             }
 
@@ -111,7 +112,7 @@ Item {
                 text: qsTr("Don't feel stared at when outside")
 
                 onCheckedChanged: {
-                    rankcalculator.checkanswer(1, 9, checked)
+                    rankCalculator.checkanswer(1, 9, checked)
                 }
             }
 
@@ -120,7 +121,7 @@ Item {
                 text: qsTr("Feel motivation during the day")
 
                 onCheckedChanged: {
-                    rankcalculator.checkanswer(1, 10, checked)
+                    rankCalculator.checkanswer(1, 10, checked)
                 }
             }
 
@@ -129,7 +130,7 @@ Item {
                 text: qsTr("No wild changes in emotion")
 
                 onCheckedChanged: {
-                    rankcalculator.checkanswer(1, 11, checked)
+                    rankCalculator.checkanswer(1, 11, checked)
                 }
             }
 
@@ -138,7 +139,7 @@ Item {
                 text: qsTr("Have a clean conscience")
 
                 onCheckedChanged: {
-                    rankcalculator.checkanswer(1, 12, checked)
+                    rankCalculator.checkanswer(1, 12, checked)
                 }
             }
 
@@ -147,7 +148,7 @@ Item {
                 text: qsTr("Don't find joy in shocking/gory material")
 
                 onCheckedChanged: {
-                    rankcalculator.checkanswer(1, 13, checked)
+                    rankCalculator.checkanswer(1, 13, checked)
                 }
             }
 
@@ -156,7 +157,7 @@ Item {
                 text: qsTr("Get to sleep (quite) easily at night")
 
                 onCheckedChanged: {
-                    rankcalculator.checkanswer(1, 14, checked)
+                    rankCalculator.checkanswer(1, 14, checked)
                 }
             }
 
@@ -165,7 +166,7 @@ Item {
                 text: qsTr("Get up (quite) easily in the morning")
 
                 onCheckedChanged: {
-                    rankcalculator.checkanswer(1, 15, checked)
+                    rankCalculator.checkanswer(1, 15, checked)
                 }
             }
 
@@ -174,7 +175,7 @@ Item {
                 text: qsTr("No sexual attraction to under 15s")
 
                 onCheckedChanged: {
-                    rankcalculator.checkanswer(1, 16, checked)
+                    rankCalculator.checkanswer(1, 16, checked)
                 }
             }
 
